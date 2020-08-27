@@ -41,3 +41,13 @@ a {
   color: white !important;
   background-color: black !important;
 }
+
+.btn-blue {
+  color: white !important;
+  background-color: #007bff !important;
+}
+
+.btn-red {
+  color: white !important;
+  background-color: #dc3545 !important;
+}
