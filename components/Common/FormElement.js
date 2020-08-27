@@ -1,9 +1,12 @@
 import React from 'react'
 import { isEmpty } from 'lodash'
 
+import MTSelect from './MTSelect'
+
 const FormElement = ({
   type = 'text',
   required,
+  options,
   title,
   property,
   placeholder,
@@ -26,18 +29,32 @@ const FormElement = ({
         </label>
       )}
       <div>
-        <input
-          id={property}
-          type={type}
-          name={property}
-          placeholder={placeholder}
-          className={`form-control input100 ${
-            !isEmpty(error) && 'input-error'
-          }`}
-          value={value}
-          onBlur={onBlur}
-          onChange={onChange}
-        />
+        {type === 'select' ? (
+          <MTSelect
+            id={property}
+            className="input-select"
+            isMulti={true}
+            options={options}
+            placeholder={placeholder}
+            name={property}
+            value={value}
+            onBlur={onBlur}
+            onChange={onChange}
+          />
+        ) : (
+          <input
+            id={property}
+            type={type}
+            name={property}
+            placeholder={placeholder}
+            className={`form-control input100 ${
+              !isEmpty(error) && 'input-error'
+            }`}
+            value={value}
+            onBlur={onBlur}
+            onChange={onChange}
+          />
+        )}
         {!isEmpty(description) && (
           <div className="color-grey-2">{parse(description)}</div>
         )}
