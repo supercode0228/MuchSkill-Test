@@ -8,3 +8,11 @@ export const FETCH_DEPARTMENTS = gql`
     }
   }
 `
+export const ADD_DEPARTMENT = gql`
+  mutation add_department($name: String!) {
+    add_department(name: $name) {
+      _id
+      name
+    }
+  }
+`
