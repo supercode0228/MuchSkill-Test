@@ -3,6 +3,7 @@ import { Table, Button } from 'reactstrap'
 
 const DataTable = (props) => {
   const { columns, data, actions } = props
+  console.log('data', data)
   return (
     <Table hover responsive>
       <thead>
@@ -19,8 +20,11 @@ const DataTable = (props) => {
           <tr key={index}>
             <th scope="row">{index + 1}</th>
             {Object.keys(item).map((key) => {
-              if (key !== '_id' && key !== '__typename')
-                return <th key={item[key]}>{item[key]}</th>
+              console.log(typeof item[key])
+              if (key !== '_id' && key !== '__typename') {
+                if (typeof item[key] === 'string')
+                  return <th key={item[key]}>{item[key].toString()}</th>
+              }
             })}
             <th>
               {actions.map((action, index) => (
