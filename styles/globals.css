@@ -15,6 +15,11 @@ a {
   box-sizing: border-box;
 }
 
+.field-required:after {
+  content: ' *';
+  color: red;
+}
+
 .container {
   max-width: 1024px;
   margin: 150px auto;
