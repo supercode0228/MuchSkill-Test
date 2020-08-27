@@ -67,6 +67,7 @@ const Departments = () => {
     setDialog({
       ...dialog,
       isOpen: !dialog.isOpen,
+      isEdit: false,
       formData: {
         ...dialog.formData,
         name: dialog.isOpen ? '' : dialog.formData.name,
