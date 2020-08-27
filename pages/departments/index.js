@@ -5,6 +5,8 @@ import { Button } from 'reactstrap'
 
 import { FETCH_DEPARTMENTS, ADD_DEPARTMENT, EDIT_DEPARTMENT } from '../../gqls'
 
+import { cache } from '../../apollo/cache'
+
 import {
   DepartmentsDataTable,
   DepartmentFormDlg,
@@ -33,12 +35,13 @@ const Departments = () => {
   const handleDeleteDlgOpen = () => {}
 
   const handleDlgOpen = (item) => {
-    setSelected(item)
     setDialog({
       ...dialog,
+      isEdit: item ? true : false,
       isOpen: !dialog.isOpen,
       formData: { ...dialog.formData, name: item.name },
     })
+    item && setSelected(item)
   }
 
   const handleDlgToggle = () => {
@@ -54,10 +57,20 @@ const Departments = () => {
 
   const handleEditDepartment = (e, edit_department) => {
     e.preventDefault()
+
+    const { formData } = dialog
+    const params = {
+      _id: selected._id,
+      name: formData.name,
+    }
+    edit_department({ variables: params })
   }
 
   const handleAddDepartment = (e, add_department) => {
     e.preventDefault()
+
+    const { formData } = dialog
+    add_department({ variables: formData })
   }
 
   return (
