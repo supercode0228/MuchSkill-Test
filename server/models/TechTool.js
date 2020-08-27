@@ -5,6 +5,12 @@ const techtool = {
     type: String,
     required: true,
   },
+  departments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Department',
+    },
+  ],
 }
 
 const techtoolSchema = new Schema(techtool)
