@@ -4,7 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { FormElement } from '../Common'
 
 const DepartmentFormDlg = (props) => {
-  const { add_department, formData, isOpen, onToggle, onChange, onSave } = props
+  const { formData, isOpen, onToggle, onChange, onSave } = props
   const { name } = formData
   return (
     <Modal isOpen={isOpen} toggle={onToggle}>
