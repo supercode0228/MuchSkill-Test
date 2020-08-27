@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "server": "nodemon -w server -w package.json server/server.js",
+    "client": "next dev",
     "build": "next build",
     "start": "next start"
   },
