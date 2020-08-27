@@ -12,6 +12,10 @@ import styles from '../../styles/Department.module.css'
 const Departments = () => {
   let departments = []
 
+  const handleDeleteDlgOpen = () => {}
+
+  const handleDlgOpen = () => {}
+
   return (
     <div className="container">
       <div className={styles.department__header}>
@@ -28,8 +32,8 @@ const Departments = () => {
               return (
                 <DepartmentsDataTable
                   data={departments}
-                  onDeleteDlg={handleDeleteDlgToggle}
-                  onEditDlg={handleDlgToggle}
+                  onDeleteDlg={handleDeleteDlgOpen}
+                  onEditDlg={handleDlgOpen}
                 />
               )
             }}
