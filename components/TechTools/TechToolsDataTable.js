@@ -3,12 +3,21 @@ import { DataTable } from '../Common'
 
 const TechToolsDataTable = (props) => {
   const { data, onEditDlg, onDeleteDlg } = props
-  const columns = ['Name']
+  const columns = ['Name', 'Departments']
   const actions = [
     { classname: 'button btn-blue', name: 'Edit', function: onEditDlg },
     { classname: 'button btn-red', name: 'Delete', function: onDeleteDlg },
   ]
-  return <DataTable columns={columns} data={data} actions={actions} />
+  const updated = data.map((item) => {
+    let departmentNames = ''
+    item.departments.forEach((dep, index) => {
+      departmentNames += dep.name
+      if (index < item.departments.length - 1) departmentNames += ','
+    })
+    item.departmentNames = departmentNames
+    return item
+  })
+  return <DataTable columns={columns} data={updated} actions={actions} />
 }
 
 export default TechToolsDataTable
