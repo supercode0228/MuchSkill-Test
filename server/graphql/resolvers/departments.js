@@ -14,4 +14,34 @@ module.exports = {
       }
     },
   },
+  Mutation: {
+    add_department: async (args, req) => {
+      try {
+        const { name } = req
+        const department = await Department.create({ name })
+
+        if (department) {
+          return department
+        }
+      } catch (err) {
+        console.log(err)
+        return err
+      }
+    },
+    edit_department: async (args, req) => {
+      try {
+        const { _id, name } = req
+        const department = await Department.findByIdAndUpdate(
+          { _id },
+          { $set: { name: name } },
+          { new: true },
+        )
+
+        if (department) return department
+      } catch (err) {
+        console.log(err)
+        return err
+      }
+    },
+  },
 }
