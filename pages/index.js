@@ -1,11 +1,10 @@
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
     <div className="container">
       <h2>Elton's Test For MuchSkill</h2>
-      <div className={styles.links}>
+      <div className="links">
         <Link href="/techtools">
           <a className="button btn-black">TechTools</a>
         </Link>

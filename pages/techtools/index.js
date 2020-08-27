@@ -18,8 +18,6 @@ import { TechToolsDataTable, TechToolFormDlg } from '../../components/TechTools'
 
 import { ConfirmDlg } from '../../components/Common'
 
-import styles from '../../styles/TechTool.module.css'
-
 const TechTools = () => {
   const Composed = adopt({
     techtoolsQuery: ({ render }) => (
@@ -151,7 +149,7 @@ const TechTools = () => {
 
   return (
     <div className="container">
-      <div className={styles.techtool__header}>
+      <div className="techtool__header">
         <h3>TechTools</h3>
         <Button className="button btn-black" onClick={handleDlgToggle}>
           Add

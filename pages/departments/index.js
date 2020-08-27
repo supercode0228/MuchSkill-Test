@@ -19,8 +19,6 @@ import {
 
 import { ConfirmDlg } from '../../components/Common'
 
-import styles from '../../styles/Department.module.css'
-
 const Departments = () => {
   const [dialog, setDialog] = useState({
     isOpen: false,
@@ -110,7 +108,7 @@ const Departments = () => {
 
   return (
     <div className="container">
-      <div className={styles.department__header}>
+      <div className="department__header">
         <h3>Departments</h3>
         <Button className="button btn-black" onClick={handleDlgToggle}>
           Add
