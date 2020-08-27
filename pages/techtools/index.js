@@ -103,28 +103,32 @@ const TechTools = () => {
     e.preventDefault()
 
     const { formData } = dialog
-    const _id = selected._id
-    const name = formData.name
-    const departments = formData.department.map((item) => item.value)
-    const params = {
-      _id,
-      name,
-      departments,
+    if (isValid(formData)) {
+      const _id = selected._id
+      const name = formData.name
+      const departments = formData.department.map((item) => item.value)
+      const params = {
+        _id,
+        name,
+        departments,
+      }
+      edit_techtool({ variables: params })
     }
-    edit_techtool({ variables: params })
   }
 
   const handleAddTechTool = (e, add_techtool) => {
     e.preventDefault()
 
     const { formData } = dialog
-    const name = formData.name
-    const departments = formData.department.map((item) => item.value)
-    const params = {
-      name,
-      departments,
+    if (isValid(formData)) {
+      const name = formData.name
+      const departments = formData.department.map((item) => item.value)
+      const params = {
+        name,
+        departments,
+      }
+      add_techtool({ variables: params })
     }
-    add_techtool({ variables: params })
   }
 
   const handleDeleteTechTool = (e, delete_techtool) => {
@@ -132,6 +136,17 @@ const TechTools = () => {
 
     const _id = selected._id
     delete_techtool({ variables: { _id } })
+  }
+
+  const isValid = (data) => {
+    if (!data.name) {
+      alert('The name is required.')
+      return false
+    } else if (!data.department || data.department.length === 0) {
+      alert('The department is required.')
+      return false
+    }
+    return true
   }
 
   return (

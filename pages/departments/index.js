@@ -83,14 +83,14 @@ const Departments = () => {
       _id: selected._id,
       name: formData.name,
     }
-    edit_department({ variables: params })
+    isValid(formData) && edit_department({ variables: params })
   }
 
   const handleAddDepartment = (e, add_department) => {
     e.preventDefault()
 
     const { formData } = dialog
-    add_department({ variables: formData })
+    isValid(formData) && add_department({ variables: formData })
   }
 
   const handleDeleteDepartment = (e, delete_department) => {
@@ -98,6 +98,14 @@ const Departments = () => {
 
     const _id = selected._id
     delete_department({ variables: { _id } })
+  }
+
+  const isValid = (data) => {
+    if (!data.name) {
+      alert('The name is required')
+      return false
+    }
+    return true
   }
 
   return (
