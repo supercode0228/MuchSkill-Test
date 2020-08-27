@@ -15,7 +15,7 @@ module.exports = {
     },
   },
   Mutation: {
-    add_department: async (args, req) => {
+    add_techtool: async (args, req) => {
       try {
         const { name } = req
         const techtool = await TechTool.create({ name })
