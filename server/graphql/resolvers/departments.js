@@ -43,5 +43,15 @@ module.exports = {
         return err
       }
     },
+    delete_department: async (args, req) => {
+      try {
+        const _id = req._id
+        const department = await Department.findByIdAndDelete({ _id })
+        return department
+      } catch (err) {
+        console.log(err)
+        return err
+      }
+    },
   },
 }
