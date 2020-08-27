@@ -4,7 +4,7 @@ module.exports = {
   Query: {
     fetch_techtools: async () => {
       try {
-        const techtools = await TechTool.find().exec()
+        const techtools = await TechTool.find().populate('departments').exec()
         if (Array.isArray(techtools) && techtools.length) {
           return techtools
         }
@@ -17,8 +17,8 @@ module.exports = {
   Mutation: {
     add_techtool: async (args, req) => {
       try {
-        const { name } = req
-        const techtool = await TechTool.create({ name })
+        const { name, departments } = req
+        const techtool = await TechTool.create({ name, departments })
 
         if (techtool) {
           return techtool
@@ -30,10 +30,10 @@ module.exports = {
     },
     edit_techtool: async (args, req) => {
       try {
-        const { _id, name } = req
+        const { _id, name, departments } = req
         const techtool = await TechTool.findByIdAndUpdate(
           { _id },
-          { $set: { name: name } },
+          { $set: { name, departments } },
           { new: true },
         )
 

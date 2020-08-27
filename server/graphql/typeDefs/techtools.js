@@ -6,12 +6,18 @@ module.exports = gql`
   }
 
   extend type Mutation {
-    add_techtool(name: String!): TechTool
-    edit_techtool(name: String!, _id: ID!): TechTool
+    add_techtool(name: String!, departments: [ID!]): TechTool
+    edit_techtool(name: String!, departments: [ID!], _id: ID!): TechTool
     delete_techtool(_id: ID!): TechTool
   }
 
   type TechTool {
+    _id: ID!
+    name: String!
+    departments: [TechToolDepartment]
+  }
+
+  type TechToolDepartment {
     _id: ID!
     name: String!
   }
