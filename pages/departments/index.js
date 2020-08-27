@@ -3,7 +3,12 @@ import { ApolloConsumer, Query, Mutation } from 'react-apollo'
 import { isEmpty } from 'lodash'
 import { Button } from 'reactstrap'
 
-import { FETCH_DEPARTMENTS, ADD_DEPARTMENT, EDIT_DEPARTMENT } from '../../gqls'
+import {
+  FETCH_DEPARTMENTS,
+  ADD_DEPARTMENT,
+  EDIT_DEPARTMENT,
+  DELETE_DEPARTMENT,
+} from '../../gqls'
 
 import { cache } from '../../apollo/cache'
 
@@ -12,6 +17,8 @@ import {
   DepartmentFormDlg,
 } from '../../components/Departments'
 
+import { ConfirmDlg } from '../../components/Common'
+
 import styles from '../../styles/Department.module.css'
 
 const Departments = () => {
@@ -19,6 +26,10 @@ const Departments = () => {
     isOpen: false,
     formData: { name: '' },
     isEdit: false,
+  })
+  const [deleteDlg, setDeleteDlg] = useState({
+    isOpen: false,
+    delete_department: null,
   })
   const [selected, setSelected] = useState({})
 
@@ -32,7 +43,15 @@ const Departments = () => {
     setDialog(data)
   }
 
-  const handleDeleteDlgOpen = () => {}
+  const handleDeleteDlgOpen = (item) => {
+    const data = { ...deleteDlg, isOpen: !deleteDlg.isOpen }
+    setDeleteDlg(data)
+    item && setSelected(item)
+  }
+
+  const handleDeleteDlgToggle = () => {
+    setDeleteDlg({ ...deleteDlg, isOpen: !deleteDlg.isOpen })
+  }
 
   const handleDlgOpen = (item) => {
     setDialog({
@@ -71,6 +90,13 @@ const Departments = () => {
 
     const { formData } = dialog
     add_department({ variables: formData })
+  }
+
+  const handleDeleteDepartment = (e, delete_department) => {
+    e.preventDefault()
+
+    const _id = selected._id
+    delete_department({ variables: { _id } })
   }
 
   return (
@@ -163,6 +189,38 @@ const Departments = () => {
           )}
         </ApolloConsumer>
       )}
+      <ApolloConsumer>
+        {(client) => (
+          <Mutation
+            mutation={DELETE_DEPARTMENT}
+            onCompleted={(data) => {
+              if (isEmpty(data)) return false
+              const index = departments.indexOf(data.delete_department)
+              departments.splice(index, 1)
+              cache.writeData({
+                data: {
+                  fetch_departments: departments,
+                },
+              })
+              handleDeleteDlgToggle()
+            }}
+          >
+            {(delete_department, { loading, error }) => {
+              if (error) return error
+              return (
+                <ConfirmDlg
+                  isOpen={deleteDlg.isOpen}
+                  content="Do you really delete this department?"
+                  onToggle={handleDeleteDlgToggle}
+                  onConfirm={(e) =>
+                    handleDeleteDepartment(e, delete_department)
+                  }
+                />
+              )
+            }}
+          </Mutation>
+        )}
+      </ApolloConsumer>
     </div>
   )
 }
