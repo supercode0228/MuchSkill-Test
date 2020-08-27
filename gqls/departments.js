@@ -26,3 +26,12 @@ export const EDIT_DEPARTMENT = gql`
     }
   }
 `
+
+export const DELETE_DEPARTMENT = gql`
+  mutation delete_department($_id: ID!) {
+    delete_department(_id: $_id) {
+      _id
+      name
+    }
+  }
+`
