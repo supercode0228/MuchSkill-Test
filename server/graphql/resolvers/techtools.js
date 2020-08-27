@@ -19,9 +19,12 @@ module.exports = {
       try {
         const { name, departments } = req
         const techtool = await TechTool.create({ name, departments })
+        const addedData = await TechTool.findById({ _id: techtool._id })
+          .populate('departments')
+          .exec()
 
-        if (techtool) {
-          return techtool
+        if (addedData) {
+          return addedData
         }
       } catch (err) {
         console.log(err)
@@ -36,6 +39,8 @@ module.exports = {
           { $set: { name, departments } },
           { new: true },
         )
+          .populate('departments')
+          .exec()
 
         if (techtool) return techtool
       } catch (err) {
@@ -47,6 +52,8 @@ module.exports = {
       try {
         const _id = req._id
         const techtool = await TechTool.findByIdAndDelete({ _id })
+          .populate('departments')
+          .exec()
         return techtool
       } catch (err) {
         console.log(err)
