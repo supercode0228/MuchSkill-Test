@@ -5,5 +5,5 @@ import Home from '../../pages'
 
 test('renders correctly', () => {
   const { container } = render(<Home />)
-  expect(container.getElementsByClassName('figure')).toBeDefined()
+  expect(container.getElementsByClassName('container')).toBeDefined()
 })
